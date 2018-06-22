@@ -1,8 +1,14 @@
-var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const Nexmo = require('nexmo');
 
-var app = express();
+const nexmo = new Nexmo({
+  apiKey: process.env.API_KEY,
+  apiSecret: process.env.API_SECRET_KEY
+});
+
+const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
