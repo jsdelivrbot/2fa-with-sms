@@ -50,6 +50,7 @@ app.post('/register', (req, res) => {
   });
 
   app.post('/verify', (req, res) => {
+    console.log('verify body: ', req.body);
     let pin = req.body.pin;
     let requestId = req.body.requestId;
 
