@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.set('views', __dirname + '/views'); // Render on browser
+app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 app.use(express.static(__dirname + '/views'));
@@ -23,7 +23,7 @@ app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function (req, res) {
     res.render('index');
-  });
+});
 
 app.post('/register', (req, res) => {
     // A user registers with a mobile phone number
@@ -31,6 +31,7 @@ app.post('/register', (req, res) => {
     console.log(phoneNumber);
     const payload = {number: phoneNumber, brand: 'Marius Company'};
     nexmo.verify.request(payload, (err, result) => {
+      console.log('status:', result.status);
       if(err) {
         console.log('Verify Error: ', err);
         res.sendStatus(500);
@@ -38,7 +39,7 @@ app.post('/register', (req, res) => {
         console.log('Success verify');
         let requestId = result.request_id;
         if(result.status == '0') {
-          res.send('verify', {requestId: requestId});
+          res.render('verify', {requestId: requestId});
           // Success! Now, have your user enter the PIN
         } else {
           res.status(401).send(result.error_text);
