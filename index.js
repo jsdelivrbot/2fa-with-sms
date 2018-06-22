@@ -14,6 +14,13 @@ app.get('/', function (req, res) {
     res.send('Hello Cristis');
 });
 
+app.post('/register', (req, res) => {
+    let phoneNumber = req.body.number;
+    console.log('number:', phoneNumber);
+    res.send(phoneNumber)
+});
+
+
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
 });
