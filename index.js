@@ -106,10 +106,11 @@ app.post('/register', (req, res) => {
       } else {
         console.log('status verify: ', result.status);
         if(result && result.status == '0') { // Success!
-          res.status(200).send('Account verified!');
+          res.status(200).send({ message: 'account verified' });
         //   res.render('status', {message: 'Account verified! 🎉'});
         } else {
-            res.status(400).send('Account not verified!');
+            res.status(400).send({ message: 'account not verified' });
+
           // handle the error - e.g. wrong PIN
         }
       }
