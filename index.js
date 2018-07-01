@@ -15,22 +15,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', (process.env.PORT || 5000));
 
 app.post('/sendSMS', (req, res) => {
-  // A user registers with a mobile phone number
   let phoneNumber = req.body.number;
-  console.log(phoneNumber);
-  const payload = {number: phoneNumber, brand: 'ConnectStud'};
+  const payload = {
+    number: phoneNumber, 
+    brand: 'ConnectStud'
+  };
   nexmo.verify.request(payload, (err, result) => {
-    console.log('status:', result.status);
-    if(err) {
-      console.log('Verify Error: ', err);
+    if (err) {
       res.sendStatus(500);
     } else {
-      console.log('Success verify');
       let requestId = result.request_id;
-      console.log('requestId:', requestId);
-      if(result.status == '0') {
+      if (result.status == '0') {
         res.status(200).send({requestId: requestId});
-        // Success! Now, have your user enter the PIN
       } else {
         res.status(401).send(result.error_text);
       }
@@ -39,23 +35,21 @@ app.post('/sendSMS', (req, res) => {
 });
 
 app.post('/verify', (req, res) => {
-  console.log('verify body: ', req.body);
   let pin = req.body.pin;
   let requestId = req.body.requestId;
+  const payload = {
+    request_id: requestId,
+    code: pin
+  };
 
-  nexmo.verify.check({request_id: requestId, code: pin}, (err, result) => {
-    if(err) {
-      console.log('err:', err)
-      // handle the error
+  nexmo.verify.check(payload, (err, result) => {
+    if (err) {
+      res.status(400).send({ message: 'account not verified' });
     } else {
-      console.log('status verify: ', result.status);
-      if(result && result.status == '0') { // Success!
+      if (result && result.status == '0') {
         res.status(200).send({ message: 'account verified' });
-      //   res.render('status', {message: 'Account verified! 🎉'});
       } else {
           res.status(400).send({ message: 'account not verified' });
-
-        // handle the error - e.g. wrong PIN
       }
     }
   });
