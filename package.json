@@ -1,28 +1,20 @@
 {
-  "name": "node-js-getting-started",
+  "name": "connect-stud",
   "version": "0.0.1",
-  "description": "A sample Node.js app using Express 4",
+  "description": "REST endpoints supporting ConnectStud App",
   "engines": {
     "node": "8.10.0"
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node test.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "nexmo": "^2.3.2"
   },
   "devDependencies": {},
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
   "license": "MIT"
 }
