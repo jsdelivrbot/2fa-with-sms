@@ -17,7 +17,7 @@ app.post('/sendSMS', (req, res) => {
   // A user registers with a mobile phone number
   let phoneNumber = req.body.number;
   console.log(phoneNumber);
-  const payload = {number: phoneNumber, brand: 'Mare Boss Company'};
+  const payload = {number: phoneNumber, brand: 'ConnectStud'};
   nexmo.verify.request(payload, (err, result) => {
     console.log('status:', result.status);
     if(err) {
