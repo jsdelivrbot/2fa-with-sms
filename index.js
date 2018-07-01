@@ -12,6 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
+app.set('port', (process.env.PORT || 5000));
 
 app.post('/sendSMS', (req, res) => {
   // A user registers with a mobile phone number
@@ -60,7 +61,6 @@ app.post('/verify', (req, res) => {
   });
 });
 
-// App runing at http://localhost:5000
-app.listen(5000, function () {
-    console.log('Node app is running on port 5000');
+app.listen(app.get('port'), function () {
+  console.log('Node app is running on port', app.get('port'));
 });
